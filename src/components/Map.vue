@@ -1,25 +1,14 @@
 <template>
-  <div class="container center">
-    <div class="map" ref="mapRef">
-      <div class="map-row" v-for="(row, index) in map" :key="index">
-        <div
-          :class="{
-            'map-row__wall': cell === 1,
-            'map-row__floor': cell === 0,
-          }"
-          v-for="(cell, jndex) in row"
-          :key="jndex"
-        >
-          {{ cell ? "#" : "." }}
-        </div>
-      </div>
-    </div>
+  <div class="map-wrapper">
+    <div ref="mapContainer" class="container center map-wrapper__inner"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import generateMap from "@/composable/generateMap";
+import mapControls from "@/composable/mapControls";
+import Tile from "@/assets/scripts/Tile";
 
 export default defineComponent({
   name: "Map",
@@ -28,32 +17,28 @@ export default defineComponent({
     const MAP_WIDTH = 15;
     const MAP_HEIGHT = 15;
 
-    const map: number[][] = generateMap(MAP_WIDTH, MAP_HEIGHT);
+    const map = ref<Tile[][]>(generateMap(MAP_WIDTH, MAP_HEIGHT));
+
+    const mapContainer = mapControls(map, MAP_WIDTH, MAP_HEIGHT);
 
     return {
       map,
+      mapContainer,
     };
   },
 });
 </script>
 
 <style lang="scss">
-.map {
-  font-family: polyducks_12x12, Monospaced, sans-serif;
-  border: solid 1px black;
+.map-wrapper {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 
-.map-row {
-  display: inline-flex;
-
-  &__wall {
-    color: gray;
-  }
-
-  &__floor {
-    color: lightgrey;
-  }
+.map-wrapper__inner {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 </style>
