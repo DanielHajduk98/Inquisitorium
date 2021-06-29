@@ -3,4 +3,5 @@ module.exports = {
   transform: {
     "^.+\\.vue$": "vue-jest",
   },
+  setupFiles: ["jest-canvas-mock"],
 };
