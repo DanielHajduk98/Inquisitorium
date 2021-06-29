@@ -31,7 +31,7 @@ export default defineComponent({
 
 <style lang="scss">
 .map-wrapper {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-content: center;

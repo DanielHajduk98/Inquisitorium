@@ -5,6 +5,13 @@
 <script></script>
 
 <style lang="scss">
+html,
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  margin: 0;
+}
+
 body {
   background: black;
 }
